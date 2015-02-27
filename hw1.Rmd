@@ -1,0 +1,30 @@
+---
+title: "hw1"
+author: "Nikita Kartashov"
+date: "27 February 2015"
+output: html_document
+---
+
+
+```{r}
+library(Biostrings)
+gcContent <- function(dnaSet) {
+  freqSet <- alphabetFrequency(dnaSet, baseOnly=TRUE, as.prob=TRUE)
+  gcSet <- freqSet[,c("G", "C")]
+  rowSums(gcSet)
+}
+```
+
+```{r}
+dnaSet <- DNAStringSet(c("AACCAA", "GCCGTCGCT"))
+print(gcContent(dnaSet))
+```
+
+```{r}
+library(GenomicRanges)
+library(BSgenome.Dmelanogaster.UCSC.dm3)
+```
+
+
+
+
