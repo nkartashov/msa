@@ -23,8 +23,38 @@ print(gcContent(dnaSet))
 ```{r}
 library(GenomicRanges)
 library(BSgenome.Dmelanogaster.UCSC.dm3)
+geneRanges <- GRanges(seqnames=c("chr3R", "chrX"),
+                      ranges=IRanges(start=c(19967117, 18962306), 
+                                     end=c(19973212, 18962925)), 
+                      strand=c("+", "-"))
+geneSequences <- getSeq(Dmelanogaster, geneRanges)
+print(gcContent(geneSequences))
+randomRanges <- GRanges(seqnames=c("chrXHet", "chr2R"),
+                       ranges=IRanges(start=c(10, 11), 
+                                      end=c(100010, 100011)), 
+                       strand=c("+", "-"))
+randomSequences <- getSeq(Dmelanogaster, randomRanges)
+print(gcContent(randomSequences))
 ```
 
+Видно, что GC-контент в области генов выше, чем в кусках генома по взятым из головы координатам.
+
+```{r}
+oligonucleotideFrequency(geneSequences, width=2, as.prob=TRUE)
+oligonucleotideFrequency(randomSequences, width=2, as.prob=TRUE)
+```
+
+Тут опять же можно заметить разницу в представленности 2-меров АА, AT, CC, CG, GC, GG, TA, TG и TT. Это все до какой-то степени можно обяъснить более высоким GC-контентом (больше G и С - меньше A и T, а потому и биграмм с ними).
 
 
+```{r}
+library(TxDb.Dmelanogaster.UCSC.dm3.ensGene)
+library("GenomicFeatures")
+txdb <- TxDb.Dmelanogaster.UCSC.dm3.ensGene
+geneSequences <- getSeq(Dmelanogaster, genes(txdb))
+gcContents <- gcContent(geneSequences)
+widths <- width(geneSequences)
+plot(widths, gcContents, xlab="width", ylab="GC-content", main="D. melanogaster gene width vs GC-content plot")
+```
 
+Тут ничего не могу сказать, кроме того, что GC-контент большинства генов расположен в районе 41% на глаз, ну, и чем ген длиннее, тем ближе он схоится к этому числу, что можно обосновать, например, ЦПТ.
