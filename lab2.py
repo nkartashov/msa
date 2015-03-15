@@ -45,7 +45,16 @@ def get_start_p(char, start, emission):
 ROUNDS = 1
 
 
+def pretty_p(p):
+    return '{0:.4f}'.format(p)
+
+
+def pretty_e_p(p):
+    return pretty_p(10 ** p)
+
+
 def run_viterbi(emission_p, sequence, start_p, transition_p):
+    gc_rich_segments = []
     for r in xrange(ROUNDS):
         print('Round {0}'.format(r))
         viterbi = [[0 for _ in STATES]]
@@ -88,21 +97,27 @@ def run_viterbi(emission_p, sequence, start_p, transition_p):
                         current_gc_rich_segment[0] = i
                     else:
                         current_gc_rich_segment[1] = i
-                        gc_rich_segments.append((current_gc_rich_segment[0], current_gc_rich_segment[1]))
+                        gc_rich_segments.append(tuple(current_gc_rich_segment))
                     transition_statistics[state][new_state] += 1
                     state = new_state
                     segment_statistics[new_state] += 1
                 else:
                     transition_statistics[state][new_state] += 1
-            transition_statistics = [[value * 1.0 / length for value in row] for row in transition_statistics]
+            transition_statistics = [[log10(value) - log10(state_statistics[k]) for value in row] for k, row in
+                                     enumerate(transition_statistics)]
             return state_statistics, segment_statistics, transition_statistics, gc_rich_segments
+
         hidden_states_sequence = list(state_sequence[best_state])
         state_statistics, segment_statistics, transition_statistics, gc_rich_segments = \
             get_statistics(hidden_states_sequence)
-        print(state_statistics)
-        print(segment_statistics)
-        print(transition_statistics)
-        print(gc_rich_segments)
+
+        def report():
+            print('States: AT-rich = {0}\tGC-rich = {1}'.format(*state_statistics))
+            print('Segments: AT-rich = {0}\tGC-rich = {1}'.format(*segment_statistics))
+            for row in transition_statistics:
+                print('{0}\t{1}'.format(*map(pretty_e_p, row)))
+        report()
+    print(gc_rich_segments)
 
 
 def run_baum_welch(emission_p, sequence, start_p, transition_p):
