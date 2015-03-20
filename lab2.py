@@ -42,7 +42,7 @@ def get_start_p(char, start, emission):
     return row
 
 
-ROUNDS = 1
+ROUNDS = 10
 
 
 def pretty_p(p):
@@ -110,6 +110,8 @@ def run_viterbi(emission_p, sequence, start_p, transition_p):
         hidden_states_sequence = list(state_sequence[best_state])
         state_statistics, segment_statistics, transition_statistics, gc_rich_segments = \
             get_statistics(hidden_states_sequence)
+
+        transition_p = transition_statistics
 
         def report():
             print('States: AT-rich = {0}\tGC-rich = {1}'.format(*state_statistics))

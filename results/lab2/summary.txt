@@ -1,0 +1,65 @@
+filename: resource/VibrioCholeraeIEC224chromosomeII.fasta
+>gi|378796054|gb|CP003331.1| Vibrio cholerae IEC224 chromosome II, complete sequence
+
+====================
+===== Viterbi ======
+Round 0
+States: AT-rich = 1061464	GC-rich = 10719
+Segments: AT-rich = 48	GC-rich = 47
+1.0000	0.0000
+0.0044	0.9956
+Round 1
+States: AT-rich = 1067292	GC-rich = 4855
+Segments: AT-rich = 12	GC-rich = 11
+1.0000	0.0000
+0.0023	0.9977
+Round 2
+States: AT-rich = 1068272	GC-rich = 3871
+Segments: AT-rich = 8	GC-rich = 7
+1.0000	0.0000
+0.0018	0.9982
+Round 3
+States: AT-rich = 1068262	GC-rich = 3880
+Segments: AT-rich = 7	GC-rich = 6
+1.0000	0.0000
+0.0015	0.9985
+Round 4
+States: AT-rich = 1068262	GC-rich = 3880
+Segments: AT-rich = 7	GC-rich = 6
+1.0000	0.0000
+0.0015	0.9985
+Round 5
+States: AT-rich = 1068262	GC-rich = 3880
+Segments: AT-rich = 7	GC-rich = 6
+1.0000	0.0000
+0.0015	0.9985
+Round 6
+States: AT-rich = 1068262	GC-rich = 3880
+Segments: AT-rich = 7	GC-rich = 6
+1.0000	0.0000
+0.0015	0.9985
+Round 7
+States: AT-rich = 1068262	GC-rich = 3880
+Segments: AT-rich = 7	GC-rich = 6
+1.0000	0.0000
+0.0015	0.9985
+Round 8
+States: AT-rich = 1068262	GC-rich = 3880
+Segments: AT-rich = 7	GC-rich = 6
+1.0000	0.0000
+0.0015	0.9985
+Round 9
+States: AT-rich = 1068262	GC-rich = 3880
+Segments: AT-rich = 7	GC-rich = 6
+1.0000	0.0000
+0.0015	0.9985
+GC-rich segments:
+[(275668, 276365), (666687, 667664), (669454, 670316), (746328, 746567), (952639, 953269), (1023950, 1024425)]
+Using the genbank file found on the Internet, let's try and identify these GC-rich segments:
+1) 03Y_14658 (reverse)
+2) 03Y_16913 (forward)
+3) 03Y_16928 (reverse)
+4) 03Y_17288 (reverse) (only a portion of gene is identified, have no idea why,
+ probably because it has more AT towards the end and therefore model changed the state)
+5) 03Y_18168 (reverse)
+
